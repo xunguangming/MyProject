@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+<style>
+    body{
+  margin:0;
+  padding:0;
+  font-family:"微软雅黑";
+}
+/*弹幕*/
+.dm{
+	width:100%;
+	height:380px;
+	overflow:hidden;
+	}
+.dm-1{
+	width:800px;
+	height:350px;
+	border:1px solid #000;
+	margin-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+	overflow:hidden;
+	}
+.dm-1 p{
+	width:800px;
+	height:auto;
+	padding:0;
+	margin:0;
+	position:absolute;
+	left:800px;
+	top:0;
+	}
+/*按钮*/
+.send{
+	width:100%;
+	height:100px;
+	overflow:hidden;
+	}
+.s-text,.s-btn{
+	width:400px;
+	height:40px;
+	margin-left:auto;
+	margin-right:auto;
+	}
+.s-s-text{
+	width:400px;
+	height:40px;
+	margin-left:auto;
+	margin-right:auto;
+	}
+.s-btn{
+	margin-top:20px;
+	}
+.s-s-sub,.s-s-del{
+	width:160px;
+	height:40px;
+	margin-left:20px;
+	background-color:#fff;
+	border:1px solid #eee;
+	border-radius:3px;
+	font-size:14px;
+	text-align:center;
+	line-height:40px;
+	}
+.s-s-sub:hover,.s-s-del:hover{
+	color:#fff;
+	background:blue;
+	cursor:pointer;
+	}
+</style>
+</head>
+<body>
+
+<div class="dm">
+  <div class="dm-1"></div>
+</div>
+<div class="send">
+  <div class="s-text">
+    <input type="text" placeholder="说点什么吧~" class="s-s-text" autofocus>
+  </div>
+  <div class="s-btn">
+    <input type="button" value="发射" class="s-s-sub">
+    <input type="button" value="删除" class="s-s-del">
+  </div>
+</div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+    //绑定回车键
+$(function(){
+	$(document).keydown(function() {
+    if(event.keyCode==13){
+		$('.s-s-sub').click();
+		}
+     });
+});
+//彩色弹幕
+var arr = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
+function randomcolor(){
+   var str = '#';
+   for(i=0; i<6; i++){
+      str += arr[Math.floor(Math.random()*16)];
+   }
+    return str;
+  };
+
+$(document).ready(function() {
+	$('.s-s-sub').click(function(){
+		//发射
+		var i = $('.s-s-text').val();
+	        j = Math.floor(Math.random()*300);
+		if(i==''){
+			alert('输入点字吧~');
+			}
+			else{
+		$('.dm-1').append('<p></p>');
+		$('.dm-1 p:last-child').html(i);
+		$('.dm-1 p:last-child').css({"top":j,"color":randomcolor()});
+		$('.dm-1 p:last-child').animate({
+			left:"-800px"
+			},20000);
+		$('.s-s-text').val('');
+			}
+	});
+	//删除
+	$('.s-s-del').click(function(){
+		$('.dm-1').html('');
+		alert('弹幕已清空!');
+		});
+});
+
+</script>

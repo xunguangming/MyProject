@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>0908</title>
+    <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+    <style>
+        /*container容器只是为了水平居中，如不需要可以去掉这层嵌套*/
+        .container{
+            left: 50%;
+            margin-top: 100px;
+            float: left;
+            cursor:pointer;
+            position: relative;
+        }
+        .BG{
+            right: 50%;
+            font-size: 0;
+            background-color: #f2f2f2;
+            border-radius: 30px;
+            position: relative;
+        }
+        .container div{
+            font-size: 16px;
+            line-height: 60px;
+        }
+        .list{
+            float: left;
+            display: inline-block;
+            padding: 0 50px;
+            transition: color 0.5s;
+            position: relative;
+            z-index: 1;
+        }
+
+        /*这里的listH和listA顺序不能换，有优先级，当listA被使用时listH不起作用*/
+        .listH{
+            color: #ff8300;
+        }
+        .listA{
+            color: #fff;
+        }
+
+        /*滑块*/
+        #active{
+            width: 100px;
+            height: 60px;
+            border-radius: 30px;
+            background-color: #ff8300;
+            box-shadow: 0 5px 16px 0 rgba(255, 144, 0, 0.58);
+            position: relative;
+            z-index: 0;
+            transition: left 0.5s,width 1s;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+                /*设置默认激活的选项卡eq(i)*/
+                var aL = $(".list:eq(1)");
+                $("#active").width(aL.innerWidth());
+                $("#active").offset(aL.offset());
+                aL.addClass("listA");
+
+                /*为每个按钮添加点击事件*/
+                $(".list").click(function() {
+                    $("#active").width($(this).innerWidth());   //设置宽度
+                    $("#active").offset($(this).offset());   //设置位置
+                    $(this).addClass("listA");
+                    $(".list").not(this).removeClass("listA");
+                });
+
+                /*hover效果*/
+                $(".list").hover(function () {
+                    $(this).addClass("listH")
+                },function () {
+                    $(this).removeClass("listH")
+                })
+
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="BG">
+        <div class="list">one</div>
+        <div class="list">twotwo</div>
+        <div class="list">threethreethree</div>
+        <div class="list">four</div>
+        <div class="list">fivefivefive</div>
+        <div id="active"></div>
+    </div>
+</div>
+</body>
+</html>

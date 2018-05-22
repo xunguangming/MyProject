@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>圆形进度条</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #30353b;
+        }
+        .wrap{
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 100px auto 0px;
+            background-color: #5d6570;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+        .circle,.percent{
+            position: absolute;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+        .circle{
+            width: 120px;
+            height: 120px;
+            border: 40px solid #5d6570;
+            clip:rect(0,200px,200px,100px);
+        }
+        .clip-auto{
+            clip:rect(auto, auto, auto, auto);
+        }
+        .percent{
+            width: 200px;
+            height: 200px;
+            box-sizing: border-box;
+            top:-40px;
+            left:-40px;
+        }
+        .left{
+            transition:transform ease;
+            border:40px solid #fffdea;
+            clip: rect(0,100px,200px,0);
+        }
+        .right{
+            border:40px solid #fffdea;
+            clip: rect(0,200px,200px,100px);
+        }
+        .wth0{
+            width:0;
+        }
+        .num{
+            position: absolute;
+            box-sizing: border-box;
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
+            text-align: center;
+            font-size: 40px;
+            color: #fffdea;
+            left: 40px;
+            top: 40px;
+            border-radius: 50%;
+            background-color: #30353b;
+            z-index: 1;
+        }
+    </style>
+    <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+</head>
+<body>
+<div class="wrap" data-value="0.4">
+    <div class="circle">
+        <div class="percent left"></div>
+        <div class="percent right wth0"></div>
+    </div>
+    <div class="num"><span class="num-count">0</span>%</div>
+</div>
+<div class="wrap" data-value="0.7">
+    <div class="circle">
+        <div class="percent left"></div>
+        <div class="percent right wth0"></div>
+    </div>
+    <div class="num"><span class="num-count">0</span>%</div>
+</div>
+</body>
+<script>
+    $('.wrap').each(function(){
+        var percent = $(this).data('value'),
+                $circle = $(this).find('.circle'),
+                $left = $(this).find('.left'),
+                $right = $(this).find('.right'),
+                $numCount = $(this).find('.num-count'),
+                count = 0;
+
+        percent = ((!percent || percent> 1 )? 0 : percent*100);
+        var timer = setInterval(function(){
+            if(count > percent){
+                clearInterval(timer);
+                return false;
+            }else if(count>50){
+                $circle.addClass('clip-auto');
+                $right.removeClass('wth0');
+            }
+
+            $left.css("-webkit-transform","rotate("+(18/5)*count+"deg)");
+            $numCount.text(percent);
+            count++;
+        },10);
+    });
+</script>
+</html>

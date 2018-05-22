@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="http://at.alicdn.com/t/font_y2pevr1o81moyldi.css" rel="stylesheet" type="text/css">
+    <style>
+        .text{
+            line-height: 1.8;
+            margin:0 auto;
+            width: 500px;
+        }
+        .text .desc{
+            height:50px;
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .iconfont{
+            width: 100%;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div class="text">
+    <div class="desc">
+    <p class="desc-content">目木家居旗舰店，专注家居二十年。我们彰显个性，具有浓郁现代感现代风格家居设计的特色是，其设计的元素、材料都很单一，这种设计风格已经成为越来越多时尚潮人装修的首选，现代风格家居设计从整体到局部、从空间到室内陈设塑造，精雕细琢，给人一丝不苟的印象目木家居旗舰店，专注家居二十年。我们彰显个性，具有浓郁现代感现代风格家居设计的特色是，其设计的元素、材料都很单一，这种设计风格已经成为越来越多时尚潮人装修的首选，现代风格家居设计从整体到局部、从空间到室内陈设塑造，精雕细琢，给人一丝不苟的印象目木家居旗舰店，专注家居二十年。我们彰显个性，具有浓郁现代感现代风格家居设计的特色是，其设计的元素、材料都很单一，这种设计风格已经成为越来越多时尚潮人装修的首选，现代风格家居设计从整体到局部、从空间到室内陈设塑造，精雕细琢，给人一丝不苟的印象目木家居旗舰店，专注家居二十年。我们彰显个性，具有浓郁现代感现代风格家居设计的特色是，其设计的元素、材料都很单一，这种设计风格已经成为越来越多时尚潮人装修的首选，现代风格家居设计从整体到局部、从空间到室内陈设塑造，精雕细琢，给人一丝不苟的印象</p>
+    </div>
+    <div href="javascript:void(0);" class="iconfont icon-unfold"></div>
+</div>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".text").off('click').on('click','.icon-unfold', function () {
+            $(".desc").animate({height: $('.desc-content').height()}, "slow");
+            $(this).removeClass('icon-unfold icon-fold').addClass('icon-fold');
+        }).on('click','.icon-fold', function () {
+            $(".desc").animate({height: '50px'}, "normal");
+            $(this).removeClass('icon-fold icon-unfold').addClass('icon-unfold');
+        });
+    })
+</script>
+</body>
+</html>

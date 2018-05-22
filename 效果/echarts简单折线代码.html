@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>echarts-demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html,
+    body {
+      width: 100%;
+    }
+    .chart {
+      width: 1000px;
+      height: 400px;
+      padding: 20px;
+      margin: 50px auto 0;
+      border: 1px solid #a9a9a9;
+    }
+  </style>
+</head>
+<body>
+  <div class="chart" id="chart"></div>
+  <script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.min.js"></script>
+  <script>
+    window.onload = () => {
+      var data = { // 假数据
+        listname: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '24:00'],
+        listvalue: [
+          [6000, 8000, 4578, 15489, 1248, 4578, 9845, 17564, 3658, 8456, 1248, 5678, 9852],
+          [8000, 6000, 18457, 4857, 7548, 1454, 3458, 12486, 1245, 6578, 1548, 16485, 1248]
+        ]
+      };
+
+      var myChart = echarts.init(document.getElementById('chart')), // 初始化echarts对象
+          time = data.listname,
+          colors = ['#1b79d0', '#ff735c'],
+          options = {
+            title: {
+              text: '简单echarts-demo',
+              subtext: 'ntnyq'
+            },
+            color: colors, // 颜色设置
+            tooltip : {
+              trigger: 'axis' // 提示在坐标轴位置
+            },
+            grid: {
+              left: '3%', // 网格位置
+              bottom: '20px',
+              containLabel: true,
+            },
+            legend: { // 顶部
+              data: ['今日播放次数','昨天播放次数']
+            },
+            calculable : true,
+            xAxis : [
+              {
+                // show: false, // 隐藏了整个坐标轴
+                // axisLine: { // 隐藏坐标轴
+                //   show: false
+                // },
+                axisTick: { // 去掉小横线
+                  show: false
+                },
+                type : 'category',
+                boundaryGap : false, // 贴边边距
+                splitLine: { show: false }, // 去掉默认网格线
+                data : time // 坐标轴数据
+              }
+            ],
+            yAxis: [
+              {
+                // show: false,
+                // axisLine: { // 隐藏坐标轴
+                //   show: false
+                // },
+                axisTick: {
+                  show: false
+                },
+                type: "value",
+                axisLabel: {
+                  formatter: '{value} 次' // 格式化坐标轴显示
+                },
+                splitLine: { show: false } // 去掉默认网格线
+              }
+            ],
+            series : [
+              {
+                name: '今日播放次数',
+                smooth: true, // 线条柔和
+                type: 'line', // 线图
+                data: data.listvalue[0], // 数据
+                symbol: 'circle', // 折现顶部实心圆
+                symbolSize: 8 // 小圆点大小
+              },
+              {
+                name: '昨天播放次数',
+                smooth: true,
+                type: 'line',
+                data: data.listvalue[1],
+                symbol: 'circle',
+                symbolSize: 8 // 小圆点大小
+              }
+            ]
+        };
+      myChart.setOption(options); // 采用配置生成
+    };
+  </script>
+</body>
+</html>

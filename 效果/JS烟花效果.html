@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Author" content="aoliann">
+<title>un</title>
+<style type="text/css">
+*{margin:0;padding:0;}
+body{
+    background: #000;
+    overflow: hidden;
+}
+a{text-decoration: none;color:black;}
+li{list-style:none;}
+.firework{
+    position: absolute;
+    width:10px;
+    height:50px;
+    background:lightgreen;
+    border-radius: 50%;
+}
+.fires{
+    position: absolute;
+    width:8px;
+    height: 8px;
+    background: purple;
+    border-radius: 50%;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+var timer = null;
+//生成子弹节点
+document.onclick = function(e){
+
+var e = e || window.event; //兼容低版本IE
+var x = e.clientX,        //获取X坐标
+    y = e.clientY,       //获取Y坐标
+    h = window.innerHeight;   //获取浏览器高度
+   firework(x,y,h);          //把当前鼠标点击的坐标当做形参
+};
+//让子弹到达鼠标点击的位置
+function firework(x,y,h){
+
+var oDiv = document.createElement('div'); // 创建一个div节点
+oDiv.className = 'firework';  //给创建的div添加类名
+oDiv.style.left = x + 'px';
+oDiv.style.top = h + 'px';
+oDiv.style.backgroundColor = color();
+document.body.appendChild(oDiv); //把创建的div节点添加到body中
+var speed =10; //自定义的速度
+timer = setInterval(function(){
+ oDiv.style.top = oDiv.offsetTop -speed +'px'; // 每30毫秒在原基础的位置向上减去10
+
+ if(oDiv.offsetTop <= y){   //判断子弹是否到达点击的位置
+    clearInterval(timer);  //如果到达了鼠标点击的位置清除定时器 让子弹不再运动
+    document.body.removeChild(oDiv); //删除这个子弹节点
+
+
+    createFires(x,y,h);
+ }
+
+},30)
+}
+//生成烟花
+function createFires(x,y,h){
+
+var n = Math.ceil(Math.random()*50) + 50; // 生成随机烟花粒子数范围(50-100）
+var fires = [];//自定义数组用于存储生成随机的烟花粒子
+for(var i=0;i<n;i++){
+    fires[i] = document.createElement('div');
+    fires[i].className ='fires';
+    fires[i].style.left = x + 'px';
+    fires[i].style.top =  y + 'px';
+    fires[i].style.backgroundColor = color();
+    fires[i].speedX = Math.random() * 19 -9 ;
+    fires[i].speedY = Math.random() * 20 -8 ;
+    document.body.appendChild(fires[i]);
+}
+     setInterval(function(){
+      for(var i=0;i<n;i++){
+            fires[i].style.left = fires[i].offsetLeft + fires[i].speedX + 'px';
+            fires[i].style.top =  fires[i].offsetTop + fires[i].speedY + 'px';
+            fires[i].speedY += 0.6;
+
+            if(fires[i].offsetLeft < 0 || fires[i].offsetLeft > window.innerWidth || fires[i].offsetTop > h)
+            {
+            document.body.removeChild(fires[i]);
+            }
+        }
+    },30)
+}
+//生成随机颜色
+function color(){
+    var r = Math.floor(Math.random()*256);
+    var g = Math.floor(Math.random()*256);
+    var b = Math.floor(Math.random()*256);
+
+   return "rgb("+r+","+g+","+b+")"
+
+}
+</script>
+</body>
+</html>

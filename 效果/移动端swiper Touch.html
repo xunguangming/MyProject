@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>touch展示</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+
+<link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+<style>
+*{margin: 0;padding: 0;}
+#header{position:absolute;left:0;top:0;z-index:999;width: 100%;height: 43px;overflow: hidden;background: #fdfdfc;font: 12px/40px hiragino sans gb, microsoft yahei, simsun;box-shadow:3px 3px 3px rgba(0,0,0,0.2);}
+#top-line{width: 100%;height: 3px;line-height: 0;font-size: 0;overflow: hidden;text-align: center;z-index: 1;background-color: #0fa6ea;background: -webkit-linear-gradient(left, rgba(15,166,234,1) 0, rgba(89,204,24,1) 10%, rgba(15,166,234,1) 60%, rgba(15,166,234,1) 100%);background: -moz-linear-gradient(left, rgba(15,166,234,1) 0, rgba(89,204,24,1) 10%, rgba(15,166,234,1) 60%, rgba(15,166,234,1) 100%);background: -ms-linear-gradient(left, rgba(15,166,234,1) 0, rgba(89,204,24,1) 10%, rgba(15,166,234,1) 60%, rgba(15,166,234,1) 100%);background: linear-gradient(left, rgba(15,166,234,1) 0, rgba(89,204,24,1) 10%, rgba(15,166,234,1) 60%, rgba(15,166,234,1) 100%);}
+#header .swiper-slide{padding: 0 20px;width:auto;}
+#banner{width: 100%;height:170px;overflow: hidden;margin-top:43px;position:relative;}
+#banner .swiper-slide{position:relative;text-align:center;}
+#banner img{max-width: 100%;}
+.gallerytitle{text-align: center;font-size: 1em;height: 42px;line-height: 42px;color: #fafafa;position: absolute;left: 0;bottom: 0;right: 0;font-weight: normal;text-shadow: 1px 1px 1px #000;
+/* background-color: rgba(21,20,20,0.5); */background-color: rgba(0,0,0,0);background: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));background: -webkit-gradient(linear,top,from(rgba(0,0,0,0)),to(rgba(0,0,0,0.7)));background: -webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));background: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));}
+.pagination{position: absolute; z-index: 20; bottom: 10px; width: 66px; text-align: center; right:0;}
+.swiper-pagination-bullet{display: inline-block; width: 5px; height: 5px; border-radius:5px; background: #fff; margin: 0 2px; opacity: 0.8; cursor: pointer;}
+.swiper-pagination-bullet-active{background: #ff6600;}
+#tabs-container{height:400px;}
+.tabs{margin-top:20px;border-top: 2px solid #9ac7ed;background-size:auto 100%;width:100%;height:38px;overflow:hidden;}
+.tabs a{font-size: 1em;font-weight: normal;text-align: center;float: left;width: 64px;height: 38px;line-height: 38px;color: #2a70be;}
+.tabs a.active{border-top: 2px solid #2a70be;margin-top: -2px;background-repeat: no-repeat;-webkit-background-size: 64px 39px;-moz-background-size: 64px 39px;-o-background-size: 64px 39px;background-size: 64px 39px;background-position: left top;color: #c14545;}
+.news-list{padding:0 10px;}
+.news-list li{overflow: hidden;border-bottom: 1px solid #eceef0;box-shadow: 0 1px 1px #fff;font-weight: normal;height: 35px;line-height: 35px;font-size:0.75em;}
+</style>
+</head>
+<body>
+<div id="header">
+	<div id="top-line"></div>
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">新闻</div>
+		<div class="swiper-slide">财经</div>
+		<div class="swiper-slide">娱乐</div>
+		<div class="swiper-slide">体育</div>
+		<div class="swiper-slide">订阅</div>
+		<div class="swiper-slide">微博</div>
+		<div class="swiper-slide">空间</div>
+		<div class="swiper-slide">书城</div>
+	</div>
+</div>
+<div id="banner">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide"><img src="http://iph.href.lu/400x200?text=占位图片一" /></div>
+		<div class="swiper-slide"><img src="http://iph.href.lu/400x200?text=占位图片二" /></div>
+	</div>
+	<div class="pagination"></div>
+</div>
+<div class="tabs"> <a href="#" class="active">推荐</a> <a href="#" >新闻</a> <a href="#">娱乐</a> </div>
+<div id="tabs-container" class="swiper-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide">
+			<div class="content-slide">
+				<ul class="news-list">
+					<li>国产食盐“添加剂”堪比砒霜，几分钟内可毒死人？央视深度揭秘</li>
+					<li>儿子偷拿200元买玩具 母亲怒砸商家店铺</li>
+					<li>国产食盐“添加剂”堪比砒霜，几分钟内可毒死人？央视深度揭秘</li>
+					<li>儿子偷拿200元买玩具 母亲怒砸商家店铺</li>
+					<li>国产食盐“添加剂”堪比砒霜，几分钟内可毒死人？央视深度揭秘</li>
+					<li>儿子偷拿200元买玩具 母亲怒砸商家店铺</li>
+					<li>国产食盐“添加剂”堪比砒霜，几分钟内可毒死人？央视深度揭秘</li>
+					<li>儿子偷拿200元买玩具 母亲怒砸商家店铺</li>
+					<li>国产食盐“添加剂”堪比砒霜，几分钟内可毒死人？央视深度揭秘</li>
+					<li>儿子偷拿200元买玩具 母亲怒砸商家店铺</li>
+				</ul>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="content-slide">
+				<ul class="news-list">
+					<li>民国报纸的标题，绝对甩出当今标题党好几条街</li>
+					<li>有哪些非常有创意的新闻标题？</li>
+					<li>民国报纸的标题，绝对甩出当今标题党好几条街</li>
+					<li>有哪些非常有创意的新闻标题？</li>
+					<li>民国报纸的标题，绝对甩出当今标题党好几条街</li>
+					<li>有哪些非常有创意的新闻标题？</li>
+					<li>民国报纸的标题，绝对甩出当今标题党好几条街</li>
+					<li>有哪些非常有创意的新闻标题？</li>
+					<li>民国报纸的标题，绝对甩出当今标题党好几条街</li>
+					<li>有哪些非常有创意的新闻标题？</li>
+				</ul>
+			</div>
+		</div>
+		<div class="swiper-slide">
+			<div class="content-slide">
+				<ul class="news-list">
+					<li>韩国也山寨"机器大狗":能跑能跳</li>
+					<li>杨子荣智取威虎山的前前后后</li>
+					<li>韩国也山寨"机器大狗":能跑能跳</li>
+					<li>杨子荣智取威虎山的前前后后</li>
+					<li>韩国也山寨"机器大狗":能跑能跳</li>
+					<li>杨子荣智取威虎山的前前后后</li>
+					<li>韩国也山寨"机器大狗":能跑能跳</li>
+					<li>杨子荣智取威虎山的前前后后</li>
+					<li>韩国也山寨"机器大狗":能跑能跳</li>
+					<li>杨子荣智取威虎山的前前后后</li>
+					<li>韩国也山寨"机器大狗":能跑能跳</li>
+					<li>杨子荣智取威虎山的前前后后</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.onload = function() {
+	var mySwiper1 = new Swiper('#header',{
+	  freeMode : true,
+	  slidesPerView : 'auto',
+	  freeModeSticky : true ,
+	});
+	var mySwiper2 = new Swiper('#banner',{
+	  autoplay:5000,
+	  visibilityFullFit : true,
+	  loop:true,
+	  pagination : '.pagination',
+	});
+
+	var tabsSwiper = new Swiper('#tabs-container',{
+	speed:500,
+	onSlideChangeStart: function(){
+	  $(".tabs .active").removeClass('active')
+	  $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active')
+	}
+	})
+	$(".tabs a").on('touchstart mousedown',function(e){
+	e.preventDefault()
+	$(".tabs .active").removeClass('active')
+	$(this).addClass('active')
+	tabsSwiper.slideTo( $(this).index() )
+	})
+	$(".tabs a").click(function(e){
+	e.preventDefault()
+	})
+
+}
+</script>
+</body>
+</html>

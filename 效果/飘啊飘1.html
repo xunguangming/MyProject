@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>飘呀飘</title>
+		<style type="text/css">
+			#img{position: absolute; left: 311; top: 815;visibility :hidden;border:1px solid #000; width:200px; height:100px;}
+			#img a{display: inline-block;}
+			.imgcon{width:100%;height:100%; cursor:pointer}
+			.ficon{cursor:pointer;position: absolute; width:18px;height: 18px;background: url(images/close.png) no-repeat;top:0;right: 0;}
+		</style>
+	</head>
+	<body>
+		<div id="img"onmouseover="clearInterval(interval)" onmouseout="interval = setInterval('changePos()', delay)" align="right">
+			<img class="imgcon" src="img/tu1.jpg" onclick="javascript:window.open('http://xxzyzz.com/index.html');" />
+			<div class="ficon" onclick="clearInterval(interval);img.style.visibility = 'hidden'"></div>
+		</div>
+		<script type="text/javascript">
+			var xPos = 20;
+			var yPos = document.body.clientHeight;
+			var step = 5;
+			var delay = 30;
+			var height = 0;
+			var Hoffset = 0;
+			var Woffset = 0;
+			var yon = 0;
+			var xon = 0;
+			var pause = true;
+			var interval;
+			var img =document.getElementById('img');
+			img.style.top = yPos;
+			function changePos() {
+				width = document.body.clientWidth;
+				height = document.body.clientHeight;
+				Hoffset = img.offsetHeight;
+				Woffset = img.offsetWidth;
+				img.style.left = xPos + document.body.scrollLeft;
+				img.style.top = yPos + document.body.scrollTop;
+				if (yon) {
+					yPos = yPos + step;
+				} else {
+					yPos = yPos - step;
+				}
+				if (yPos < 0) {
+					yon = 1;
+					yPos = 0;
+				}
+				if (yPos >= (height - Hoffset)) {
+					yon = 0;
+					yPos = (height - Hoffset);
+				}
+				if (xon) {
+					xPos = xPos + step;
+				} else {
+					xPos = xPos - step;
+				}
+				if (xPos < 0) {
+					xon = 1;
+					xPos = 0;
+				}
+				if (xPos >= (width - Woffset)) {
+					xon = 0;
+					xPos = (width - Woffset);
+				}
+			}
+			function start() {
+				img.style.visibility = "visible";
+				interval = setInterval(changePos, delay);
+			}
+
+			window.onload = function  () {
+				start();
+			}
+		</script>
+	</body>
+</html>

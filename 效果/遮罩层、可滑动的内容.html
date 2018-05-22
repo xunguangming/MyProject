@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1.5rem;
+            background: lightgreen;
+            /*overflow:auto;!*x轴出现滚动条*!*/
+            overflow: hidden;
+        }
+
+        nav .inner {
+            position: absolute;
+            left: 0;
+            top: 0;
+            white-space: nowrap;
+            height: 100%;
+        }
+
+        nav .inner a {
+            display: inline-block;
+            width: 1.5rem;
+            line-height: 1.5rem;
+            font-size: .5rem;
+            margin:0 .2rem;
+            color: white;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .left, .right {
+            width: 10%;
+            height: 1.5rem;
+            position: fixed;
+            top: 0;
+        }
+
+        .left {
+            left: 0;
+            background: linear-gradient(to right, green, transparent);
+        }
+
+        .right {
+            right: 0;
+            background: linear-gradient(to left, green, transparent);
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="inner" style="left: 0"><!--设置行内，js中可以获取到left值-->
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+        <a href="#">电视剧</a>
+    </div>
+    <div class="left"></div>
+    <div class="right"></div>
+</nav>
+<script>
+    //动态绑定根元素的font-size值
+    var winW;
+    function refreshRem() {
+        var desW = 640;
+        winW = document.documentElement.clientWidth;
+        var ratio = winW / desW;
+        document.documentElement.style.fontSize = ratio * 100 + 'px';
+    }
+    refreshRem();
+
+    //监听窗口的大小，自动设置font-size的值
+    window.addEventListener('resize', refreshRem);
+
+
+    function on(curEle, type, fn) {
+        curEle.addEventListener(type, fn, false)
+    }
+
+    var inner = document.querySelector('.inner');
+
+    //手指按下
+    on(inner, 'touchstart', function (ev) {
+        this.x = ev.touches[0].clientX;
+        this.left = parseInt(this.style.left);
+    });
+
+    //滑动屏幕
+    on(inner, 'touchmove', function (ev) {
+        this.changeX = ev.touches[0].clientX - this.x;
+        var newL =  this.left + this.changeX;
+        var maxL = winW - inner.offsetWidth;
+        if (newL >= 0) {
+            inner.style.left = 0;
+        }
+        else if (newL < maxL) {
+            inner.style.left = maxL + 'px'
+        }
+        else {
+            inner.style.left = newL + 'px';
+        }
+    });
+
+    /*inner.onTouchStart=function (ev)  {
+        this.x = ev.touches[0].clientX;
+        this.l = parseInt(this.style.left);
+    };*/
+</script>
+</body>
+</html>

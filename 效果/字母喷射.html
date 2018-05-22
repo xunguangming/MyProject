@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>字母喷射</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#canvas {
+				background: #000000;
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="canvas"></canvas>
+		<script type="text/javascript">
+			//页面命名空间
+			var Canvas = {};
+			//字母喷射
+			//作者：潇潇纪
+			//最后更新时间：2017.7.13
+			Canvas.anim = {
+				//初始化
+				init: function() {
+					var canvas = document.getElementById("canvas");
+					canvas.width = window.innerWidth;
+					canvas.height = window.innerHeight;
+					this.ctx = canvas.getContext("2d"); //创建画笔
+					this.cW = canvas.width;
+					this.cH = canvas.height;
+					this.particles = [];
+					this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+					this.maxParticles = 100;
+				},
+
+				//执行动画
+				render: function() {
+					this.feedCanvas();
+					this.tidParticles();
+					//创建字母的初始值
+					var particle = {
+						x: this.cW / 2,
+						y: this.cH,
+
+						character: this.letters[Math.floor(Math.random() * this.letters.length)],
+						color: [150, 100, 50, .7],
+						size: "14px",
+						xSpeed: (Math.random() * 20) - 10,
+						ySpeed: (Math.random() * 20) - 10,
+					}
+					this.particles.push(particle);
+					this.drawParticles();
+					console.log(particle.y);
+				},
+				//				绘制字母
+				drawParticles: function() {
+					var particleCount = this.particles.length;
+					for(var i = 0; i < particleCount; i++) {
+						var particle = this.particles[i];
+						var h = particle.color[0],
+							s = particle.color[1] + "%",
+							l = particle.color[2] + "%",
+							a = particle.color[3];
+						var c = this.ctx;
+						var hsla = 'hsla(' + h + ',' + s + ', ' + l + ', ' + a + ')';
+						c.font = "14px '微软雅黑'";
+						c.fillStyle = hsla;
+						c.fillText(particle.character, particle.x, particle.y);
+
+						particle.x += particle.xSpeed;
+						particle.y += particle.ySpeed;
+						particle.y *= 0.98;
+						particle.size *= 0.9;
+						particle.color[2] *= 0.99;
+						particle.color[0] += 1;
+						if(particle.color[0]>253){
+							particle.color[2] = 100;
+						}
+					};
+				},
+//				判断创建最大字母的个数
+				tidParticles: function() {
+					if(this.particles.length > this.maxParticles){
+						this.particles.shift();
+					}
+				},
+				//					背景覆盖
+					feedCanvas: function() {
+						this.ctx.fillStyle = "rgba(0,0,0,.5)"
+						this.ctx.fillRect(0,0,this.cW,this.cH)
+					}
+			};
+			Canvas.anim.init();
+			Canvas.anim.render();
+			(function animloop() {
+				requestAnimationFrame(animloop);
+				Canvas.anim.render();
+			})();
+		</script>
+	</body>
+
+</html>

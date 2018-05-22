@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>carousel</title>
+    <link href="http://at.alicdn.com/t/font_sh8wgglx8eg0hpvi.css" rel="stylesheet" type="text/css">
+    <style>
+        ul,li {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel {
+            position: relative;
+            display: block;
+            white-space: nowrap;
+            width: 800px;
+            height: 300px;
+            overflow:hidden;
+            margin: 20px auto;
+            border: 1px solid #dddddd;
+        }
+
+        .carousel-imgs{
+            position: relative;
+            display: block;
+            left:0;
+            top:0;
+        }
+
+        .carousel-imgs li{
+            display: inline-block;
+        }
+
+        .carousel-imgs img{
+            width: 800px;
+            height: 300px;
+        }
+
+        .tag-wrap {
+            position: absolute;
+            height: 50px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .tag-list {
+            position: relative;
+            display: inline-block;
+            list-style: none;
+        }
+
+        .tag {
+            float: left;
+            height: 8px;
+            width: 50px;
+            margin: 0 5px;
+            background: #f2f2f2;
+            cursor: pointer;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+            transition: .5s;
+        }
+
+        .tag:hover {
+            background: orange;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+            transition: .5s;
+        }
+
+        .tag-current {
+            position: absolute;
+            margin: 0 5px;
+            height: 8px;
+            width: 50px;
+            background: orangered;
+            border: none;
+            left: 0;
+            top: 0;
+        }
+
+        .icon-next, .icon-prev {
+            position: absolute;
+            z-index: -99;
+            font-size: 50px;
+            top: 50%;
+            margin-top: -25px;
+            color: #ffffff;
+            cursor: pointer;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+            transition: .5s;
+        }
+
+        .icon-next {
+            right: -50px;
+        }
+
+        .icon-prev {
+            left: -50px;
+        }
+
+        .icon-prev:hover, .icon-next:hover {
+            color: #dddddd;
+            -webkit-transition: .5s;
+            -moz-transition: .5s;
+            -ms-transition: .5s;
+            -o-transition: .5s;
+            transition: .5s;
+        }
+
+        .carousel:hover .icon-next {
+            z-index: 60;
+            right: 0;
+            -webkit-transition: right .5s;
+            -moz-transition: right .5s;
+            -ms-transition: right .5s;
+            -o-transition: right .5s;
+            transition: right .5s;
+        }
+
+        .carousel:hover .icon-prev {
+            z-index: 60;
+            left: 0;
+            -webkit-transition: left .5s;
+            -moz-transition: left .5s;
+            -ms-transition: left s;
+            -o-transition: left .5s;
+            transition: left .5s;
+        }
+    </style>
+</head>
+<body>
+<section class="carousel">
+    <i class="iconfont icon-prev"></i>
+    <ul class="carousel-imgs">
+        <li><img src="http://sandbox.runjs.cn/uploads/rs/234/dsppwbbt/2.jpg"></li>
+        <li><img src="http://sandbox.runjs.cn/uploads/rs/234/dsppwbbt/3.jpg"></li>
+        <li><img src="http://sandbox.runjs.cn/uploads/rs/234/dsppwbbt/4.jpg"></li>
+        <li><img src="http://sandbox.runjs.cn/uploads/rs/234/dsppwbbt/5.jpg"></li>
+        <li><img src="http://sandbox.runjs.cn/uploads/rs/234/dsppwbbt/6.jpg"></li>
+    </ul>
+    <i class="iconfont icon-next"></i>
+    <div class="tag-wrap">
+        <ul class="tag-list">
+            <li class="tag"></li>
+            <li class="tag"></li>
+            <li class="tag"></li>
+            <li class="tag"></li>
+            <li class="tag"></li>
+            <li class="tag-current"></li>
+        </ul>
+    </div>
+    <input id="carousel-current" type="hidden" value="0"/>
+</section>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        /**
+         * 初始化一些不变的量，考虑到const兼容性使用let或var；
+         */
+        let _TIME = 2000; // 轮播停留时间
+        let tagW = $('.tag-current').outerWidth(true);// 当前标签的外宽度，包含margin、padding等
+        let imgW = $('.carousel-imgs').find('img').width();// 获取图片宽度
+
+        // 显示第index个，第一个为0，以此类推；
+        function showIndex(index){
+            //判断应该显示的图片和标签
+            let len = $('.carousel-imgs').find('li').length-1;
+            index = index<0?len:(index>len?0:index);
+            $('#carousel-current').val(index);// 保存当前显示的index值
+
+            // 移动显示相关内容
+            $('.carousel-imgs').animate({left:-1*index*imgW},'slow');
+            $('.tag-current').animate({left:index*tagW},'slow');
+        }
+
+        // 显示下一个图片
+        function showNext() {
+            let index = Number($('#carousel-current').val());
+            showIndex(index+1);
+        }
+
+        //显示上一个图片
+        function showPrev(){
+            let index = Number($('#carousel-current').val());
+            showIndex(index-1);
+        }
+
+        let timer;
+        //通过setTimeout实现setInterval方法
+        function animation(){
+                clearTimeout(timer);
+                showNext();
+                timer = setTimeout(arguments.callee, _TIME);
+        }
+
+        //默认开始自动轮播
+        timer = setTimeout(animation, _TIME);
+
+        /**
+         * 鼠标悬浮式清空定时器，不再自动轮播
+         * 鼠标移出时，添加定时器，自动轮播
+         */
+        $('.carousel').mouseenter(function () {
+            clearTimeout(timer);
+        }).mouseleave(function () {
+            if(timer)clearTimeout(timer);
+            timer = setTimeout(animation, _TIME);
+        })
+
+        // 底部标签点击事件
+        $('.tag-list').on('click', '.tag', function () {
+            showIndex($(this).index());
+        })
+
+        // 手动点击下一条
+        $('.icon-next').click(function () {
+            showNext();
+        })
+
+        // 手动点击上一条
+        $('.icon-prev').click(function () {
+            showPrev();
+        })
+    })
+</script>
+</body>
+</html>

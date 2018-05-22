@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>网页键盘钢琴按键特效</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+			list-style:none;
+		}
+		#box{
+			width:400px;
+			margin:300px auto 0;
+		}
+		ul{
+			margin-right:-20px;
+		}
+		li{
+			width:48px;
+			height:48px;
+			border:1px solid #666;
+			float:left;
+			margin-right:20px;
+			text-align:center;
+			line-height:48px;
+			background:#000;
+			color:#fff;
+			font-weight:bold;
+			position:relative;
+		}
+		li span{
+			display:block;
+			opacity:0.5;
+			filter:alpha(opacity:50);
+		}
+		li p{
+			width:100%;
+			height:0;
+			background:#03F;
+			position:absolute;
+			bottom:49px;
+			left:0;
+		}
+		.keyA{
+			background:#e51c55;
+		}
+		.keyS{
+			background:#c926a5;
+		}
+		.keyD{
+			background:#9c4bd5;
+		}
+		.keyJ{
+			background:#4f65c3;
+		}
+		.keyK{
+			background:#6ccab7;
+		}
+		.keyL{
+			background:#92d55d;
+		}
+		.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+		.clearfix { zoom:1; }
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li>
+				<span class="keyA">A</span>
+				<p class="keyA"></p>
+			</li>
+			<li>
+				<span class="keyS">S</span>
+				<p class="keyS"></p>
+			</li>
+			<li>
+				<span class="keyD">D</span>
+				<p class="keyD"></p>
+			</li>
+			<li>
+				<span class="keyJ">J</span>
+				<p class="keyJ"></p>
+			</li>
+			<li>
+				<span class="keyK">K</span>
+				<p class="keyK"></p>
+			</li>
+			<li style="margin-right: 0px;">
+				<span class="keyL">L</span>
+				<p class="keyL"></p>
+			</li>
+			<div class="clearfix"></div>
+		</ul>
+	</div>
+	<script>
+		window.onload = function(){
+			var aP = document.getElementsByTagName("p");
+			var aSpan = document.getElementsByTagName("span");
+			var aKeyCode = [65,83,68,74,75,76]; //定义键盘按键的键值 65表示大写A 具体键值请参照文章里的ascii表里的值
+			document.onkeydown = function(event){
+				var event = event || window.event;
+				for(var i=0; i<aKeyCode.length; i++){
+					if(event.keyCode == aKeyCode[i]){
+						startMove(aP[i],{height:240});
+						startMove(aSpan[i],{opacity:100})
+					}
+				}
+			}
+			document.onkeyup = function(event){
+				var event = event || window.event;
+				for(var i=0; i<aKeyCode.length; i++){
+					if(event.keyCode == aKeyCode[i]){
+						startMove(aP[i],{height:0});
+						startMove(aSpan[i],{opacity:50})
+					}
+				}
+			}
+		}
+		function startMove(obj, json, fnEnd){
+			clearInterval(obj.timer);
+			obj.timer=setInterval(function (){
+				var bSwitch=true;
+				for(var sAttribute in json){
+					var iTarget=json[sAttribute];
+					if(sAttribute=='opacity'){
+						var cur=Math.round(parseFloat(getStyle(obj, sAttribute))*100);
+					}else{
+						var cur=parseInt(getStyle(obj, sAttribute));
+					}
+					var speed=(iTarget-cur)/5;
+					speed=speed>0?Math.ceil(speed):Math.floor(speed);
+					if(sAttribute=='opacity'){
+						obj.style.filter='alpha(opacity:'+(cur+speed)+')'; //IE
+						obj.style.opacity=(cur+speed)/100; //ff chrome
+					}else{
+						obj.style[sAttribute]=cur+speed+'px';
+					}
+					if(cur!=iTarget){
+						bSwitch=false;
+					}
+				}
+				if(bSwitch){
+					clearInterval(obj.timer);
+					if(fnEnd){
+						fnEnd();
+					}
+				}
+			}, 30);
+		}
+			//获取飞行间样式
+		function getStyle(obj,sAuttribute){
+			var result = ""
+			if(window.getComputedStyle){
+				result = window.getComputedStyle(obj,false)[sAuttribute];
+			}else{
+				resule = obj.currentStyle[sAuttribute];
+			}
+			return result;
+		}
+	</script>
+</body>
+</html>

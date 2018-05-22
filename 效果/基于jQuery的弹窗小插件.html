@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		/*
+		 * title:弹窗标题
+		 * msg:弹窗内容
+		 * w:弹窗宽度
+		 * h:弹窗高度
+		 * btnArr:按钮数组（最多两个）
+		 * fnArr:按钮对应的处理方法数组（和按钮相互对应）
+		 * */
+		function alertWin(title,msg,w,h,btnArr,fnArr){
+
+			var maxWidth = $(window).width();//屏幕最大宽度
+   			var maxHeight = $(window).height();//屏幕最大高度
+
+    		//追加遮罩层
+			var wrap = $('<div></div>');
+			wrap.css({
+				"position": "fixed",
+			    "top": 0,
+			    "left": 0,
+			    "z-index": 99,
+			    "width": "100%",
+			    "height": "100%",
+			    "background": "rgba(0,0,0,.3)"
+			});
+			$("body").append(wrap);
+
+			//追加遮罩内容区
+			var pop = $('<div></div>');
+			pop.css({
+				"position": "relative",
+				"top": (maxHeight-h)/2,
+				"left": (maxWidth-w)/2,
+				"width": w,
+				"height": h,
+				"background":"#F2F2F2 url('http://wcmtest.uicredit.cn/H5/personal/images/pic@2x.png')  no-repeat top 60px center / 146px 80px",
+				"border-radius": "10px",
+				"text-align": "center",
+				"color": "#989898",
+				"box-shadow": "0 0 15px #999"
+			});
+			wrap.append(pop);
+
+			//追加标题
+			if(title!=""){
+				var title = $('<div>'+title+'</div>');
+				title.css({
+					"width":"100%",
+					"height":"70px",
+					"line-height":"70px",
+					"font-size": "20px"
+				});
+				pop.append(title);
+			}
+
+			//追加内容
+			var msg = $('<div>'+msg+'</div>');
+			msg.css({
+				"padding":"20px 0",
+				"font-size": "14px",
+				"padding":"90px 0 0 0"
+			});
+			pop.append(msg);
+
+			//追加按钮
+			if(btnArr!=""){
+				var btnWrap = $('<div></div>');
+				btnWrap.css({
+					"position": "absolute",
+					"bottom": 0,
+					"left": "5%",
+					"width":" 90%",
+					"display": "block",
+					"text-align": "center",
+					"font-size": "17px",
+					"border-top": "1px solid #ddd"
+				});
+				msg.append(btnWrap);
+				$.each(btnArr,function(i,v){
+					var btn = $('<a>'+v+'</a>');
+					btn.css({
+						"display": "inline-block",
+						"width": "48%",
+						"padding": "15px 0",
+						"color": "#00C3AB",
+						"cursor": "pointer"
+					});
+					btn.click(fnArr[i]);
+					btnWrap.append(btn);
+				});
+			}
+		}
+		function fnSure(){
+			alert("确定");
+		}
+		function fnCancel(){
+			alert("取消");
+		}
+		alertWin("温馨提示","确定融合氢气和氧水吗？",300,250,["取消","确定"],[fnCancel,fnSure]);
+    </script>
+</body>
+</html>

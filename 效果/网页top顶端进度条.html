@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>top进度条</title>
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+}
+.animation_paused {
+    -webkit-animation-play-state:paused;
+    -moz-animation-play-state:paused;
+    -ms-animation-play-state:paused;
+    animation-play-state:paused;
+}
+</style>
+</head>
+<body>
+
+<script>
+
+var LoadingBar = {
+
+    init: function() {
+        this.creatStyle();
+        this.creatLoadDiv();
+    },
+    width: 0,
+    oLoadDiv: false,
+    setWidth: function(w){
+        if(!this.oLoadDiv){this.init();}
+        var oLoadDiv = this.oLoadDiv,
+            width = Number(w) || 100;
+        (width<this.width) ? width=this.width : this.width = width;
+        oLoadDiv.className = 'animation_paused';
+        oLoadDiv.style.width = width + '%';
+        oLoadDiv.className = '';
+        if(width === 100){this.over(oLoadDiv);}
+    },
+
+    over: function(obj){
+        setTimeout(function(){
+            obj.style.display = 'none';
+        },1000);
+    },
+
+    creatLoadDiv: function(){
+        var div = document.createElement('div');
+        div.id = 'LoadingBar';
+        document.body.appendChild(div);
+        this.oLoadDiv = document.getElementById('LoadingBar');
+    },
+
+    creatStyle : function(){
+        var nod = document.createElement('style'),
+            str = '#LoadingBar{transition:all 1s;-moz-transition:all 1s;-webkit-transition:all 1s;-o-transition:all 1s;background-color:#f90;height: 3px;width:0; position: fixed;top: 0;z-index: 99999;left: 0;font-size: 0;z-index:9999999;_position:absolute;_top:expression(eval(document.documentElement.scrollTop));}.animation_paused{-webkit-animation-play-state:paused;-moz-animation-play-state:paused;-ms-animation-play-state:paused;animation-play-state:paused;};'
+        nod.type = 'text/css';
+        nod.styleSheet ? nod.styleSheet.cssText = str : nod.innerHTML = str;
+        document.getElementsByTagName('head')[0].appendChild(nod);
+    }
+};
+
+LoadingBar.setWidth(20);
+setTimeout(function() {
+    LoadingBar.setWidth(40);
+}, 100);
+setTimeout(function() {
+    LoadingBar.setWidth(60);
+}, 300);
+setTimeout(function() {
+    LoadingBar.setWidth(80);
+}, 500);
+setTimeout(function() {
+    LoadingBar.setWidth(100);
+}, 700);
+</script>
+</body>
+</html>

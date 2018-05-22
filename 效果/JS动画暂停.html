@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动画暂停animationPlayState</title>
+	<style>
+		.box{width: 100px;height: 100px;background-color: green;animation: boxMove 3s linear infinite alternate;}
+		@keyframes boxMove
+		{
+			from {width: 100px;height: 100px;}
+			to {width: 400px;height: 400px;}
+		}
+
+	</style>
+</head>
+<body>
+	<div class="box" id="box"></div>
+	<script>
+    var flag = true;//true表示动画状态，false表示停止状态
+    var box = document.getElementById('box');
+    box.onclick=function(){
+    	if (flag) {
+    		box.style.animationPlayState = 'paused';
+    	} else {
+    		box.style.animationPlayState = 'running';
+    	}
+    	flag = !flag;
+    };
+</script>
+</body>
+</html>

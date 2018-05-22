@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>翻页带页码</title>
+		<style>
+*{padding:0;margin:0;font-size:14px;list-style:none;border:0;outline-style:none;text-decoration:none;}
+#search_key{margin:20px auto;overflow:hidden;}
+#search_msg{overflow:hidden;position:relative;margin:20px auto;}
+
+#select_box div{display:block;clear:both;padding:20px 0;font-size:15px;color:gray;}
+#select_box div label{float:left;display:block;width:135px;color:gray;text-align:center;}
+#select_box div>ul{width:900px;float:left;}
+#select_box ul li{float:left;padding:0 10px;margin:0 2.5px;cursor:pointer;border:1px solid #fff;}
+#select_box ul li.act{border:1px solid #ccc;border-radius:50px;color: #02448c;}
+
+#show_list{width:100%;}
+#job_list{width:100%;text-align:center;border:0; border-collapse:collapse;border-spacing:0;color:gray;line-height:30px;font-size:15px;}
+#job_list .com{text-align:left;text-indent:1em;}
+#job_list a{color:#02448c;border:1px solid #ccc;padding:0px 5px;}
+
+#job_list .tit{text-align:center;line-height:40px;background:#aaaaaa;color:#fff;font-size:17px;font-weight:bold;}
+
+.fy_btn{float:left;background:none;display:block;width:20px;line-height:20px;font-size:20px;color:#ccc;cursor:pointer;}
+#allPage li{border:1px solid #ccc;margin:0 4px;width:20px;display:block;line-height:20px;float:left;text-align:center;font-size:14px;color:#ccc;cursor:pointer;}
+#allPage li.act{background:#80c269;color:#fff;}
+		</style>
+	</head>
+	<body>
+<div id="job_box">
+
+<!--{"com":"<%公司部门%>","jobtype":"<%职位名称%>","city":"<%发布城市%>","link":"<%职位链接%>"}, -->
+<textarea style="display:none;" id="jobdata">
+ [{"com":"昭通供电局-盐津供电有限公司","jobtype":"变电检修","city":"昭通","link":"94707945"},{"com":"昭通供电局-永善供电有限公司","jobtype":"变电检修","city":"昭通","link":"94708005"},{"com":"西双版纳供电局","jobtype":"变电检修","city":"西双版纳","link":"94708296"},{"com":"曲靖供电局","jobtype":"变电检修","city":"曲靖","link":"94707093"},{"com":"昭通供电局-昭通水富供电局","jobtype":"变电检修","city":"昭通","link":"94707902"},{"com":"红河供电局","jobtype":"变电检修","city":"红河州","link":"94707159"},{"com":"大理供电局","jobtype":"变电检修","city":"大理","link":"94707501"},{"com":"红河供电局-建水供电有限公司","jobtype":"变电检修","city":"红河州","link":"94707256"},{"com":"瑞丽供电局","jobtype":"变电检修","city":"德宏","link":"94709934"},{"com":"普洱供电局-澜沧供电有限公司","jobtype":"变电检修","city":"普洱","link":"94708164"},{"com":"丽江供电局","jobtype":"变电检修","city":"丽江","link":"94708668"},{"com":"昭通供电局-彝良供电有限公司","jobtype":"变电检修","city":"昭通","link":"94707967"},{"com":"昭通供电局-鲁甸供电有限公司","jobtype":"变电检修","city":"昭通","link":"94707843"},{"com":"普洱供电局-镇沅供电有限公司","jobtype":"变电检修","city":"普洱","link":"94708240"},{"com":"临沧供电局","jobtype":"变电检修","city":"临沧","link":"94708368"},{"com":"昭通供电局","jobtype":"变电检修","city":"昭通","link":"94707765"},{"com":"云南省送变电工程公司","jobtype":"变电检修","city":"昆明","link":"94710270"},{"com":"德宏供电局","jobtype":"变电检修","city":"德宏","link":"94708482"},{"com":"文山供电局","jobtype":"变电检修","city":"文山","link":"94708432"},{"com":"红河供电局-石屏供电有限公司","jobtype":"变电检修","city":"红河州","link":"94707212"},{"com":"楚雄供电局","jobtype":"变电检修","city":"楚雄","link":"94707585"},{"com":"楚雄供电局-大姚供电有限公司","jobtype":"变电检修","city":"楚雄","link":"94707680"},{"com":"玉溪供电局","jobtype":"变电检修","city":"玉溪","link":"94707324"},{"com":"云南文山电力股份有限公司","jobtype":"变电检修","city":"文山","link":"94710212"},{"com":"昆明供电局","jobtype":"变电检修","city":"昆明","link":"94706746"},{"com":"昆明供电局-禄劝供电有限公司","jobtype":"变电检修","city":"昆明","link":"94706972"},{"com":"大理供电局-南涧供电有限公司","jobtype":"变电运行","city":"大理","link":"94712319"},{"com":"普洱供电局","jobtype":"变电运行","city":"普洱","link":"94713014"},{"com":"曲靖供电局","jobtype":"变电运行","city":"曲靖","link":"94711549"},{"com":"楚雄供电局-楚雄武定供电局","jobtype":"变电运行","city":"楚雄","link":"94712502"},{"com":"保山供电局","jobtype":"变电运行","city":"保山","link":"94713358"},{"com":"文山供电局","jobtype":"变电运行","city":"文山","link":"94713231"},{"com":"昆明供电局-石林供电有限公司","jobtype":"变电运行","city":"昆明","link":"94711458"},{"com":"文山供电局-马关供电有限公司","jobtype":"变电运行","city":"文山","link":"94713285"},{"com":"昆明供电局","jobtype":"变电运行","city":"昆明","link":"94710713"},{"com":"玉溪供电局","jobtype":"变电运行","city":"玉溪","link":"94712106"},{"com":"红河供电局","jobtype":"变电运行","city":"红河州","link":"94711767"},{"com":"昭通供电局-永善供电有限公司","jobtype":"变电运行","city":"昭通","link":"94712852"},{"com":"曲靖供电局-曲靖师宗供电局","jobtype":"变电运行","city":"曲靖","link":"94711716"},{"com":"昭通供电局-彝良供电有限公司","jobtype":"变电运行","city":"昭通","link":"94712814"},{"com":"红河供电局-河口瑶族自治县供电有限责任公司","jobtype":"变电运行","city":"红河州","link":"94711900"},{"com":"昆明供电局-禄劝供电有限公司","jobtype":"变电运行","city":"昆明","link":"94711485"},{"com":"玉溪供电局-玉溪江川供电局","jobtype":"变电运行","city":"玉溪","link":"94712179"},{"com":"普洱供电局-景东供电有限公司","jobtype":"变电运行","city":"普洱","link":"94713114"},{"com":"昭通供电局-盐津供电有限公司","jobtype":"变电运行","city":"昭通","link":"94712746"},{"com":"昭通供电局","jobtype":"变电运行","city":"昭通","link":"94712585"},{"com":"昭通供电局-镇雄供电有限公司","jobtype":"变电运行","city":"昭通","link":"94712874"},{"com":"曲靖供电局-罗平供电有限公司","jobtype":"变电运行","city":"曲靖","link":"94711617"},{"com":"玉溪供电局-新平供电有限公司","jobtype":"变电运行","city":"玉溪","link":"94716819"},{"com":"迪庆供电局","jobtype":"变电运行","city":"迪庆","link":"94713469"},{"com":"普洱供电局-澜沧供电有限公司","jobtype":"变电运行","city":"普洱","link":"94713081"},{"com":"红河供电局-石屏供电有限公司","jobtype":"变电运行","city":"红河州","link":"94711969"},{"com":"红河供电局-元阳供电有限公司","jobtype":"变电运行","city":"红河州","link":"94712074"},{"com":"西双版纳供电局","jobtype":"变电运行","city":"西双版纳","link":"94713190"},{"com":"普洱供电局-江城供电有限公司","jobtype":"变电运行","city":"普洱","link":"94713046"},{"com":"德宏供电局","jobtype":"变电运行","city":"德宏","link":"94713413"},{"com":"大理供电局-大理洱源供电局","jobtype":"变电运行","city":"大理","link":"94712383"},{"com":"昭通供电局-威信供电有限公司","jobtype":"变电运行","city":"昭通","link":"94712681"},{"com":"瑞丽供电局","jobtype":"变电运行","city":"德宏","link":"94713598"},{"com":"楚雄供电局","jobtype":"变电运行","city":"楚雄","link":"94712454"},{"com":"红河供电局-红河州红河县供电局","jobtype":"变电运行","city":"红河州","link":"94712005"},{"com":"大理供电局-剑川供电有限公司","jobtype":"变电运行","city":"大理","link":"94716894"},{"com":"大理供电局","jobtype":"变电运行","city":"大理","link":"94712240"},{"com":"怒江供电局","jobtype":"变电运行","city":"怒江","link":"94713545"},{"com":"电力科学研究院","jobtype":"测试","city":"昆明","link":"94733239"},{"com":"带电作业分公司","jobtype":"带电作业","city":"昆明","link":"94717233"},{"com":"昆明供电局","jobtype":"带电作业","city":"昆明","link":"94717152"},{"com":"昭通供电局","jobtype":"带电作业","city":"昭通","link":"94717199"},{"com":"红河供电局","jobtype":"带电作业","city":"红河州","link":"94717185"},{"com":"红河供电局-河口瑶族自治县供电有限责任公司","jobtype":"电力调度","city":"红河州","link":"94717432"},{"com":"云南文山电力股份有限公司","jobtype":"电力调度","city":"文山","link":"94717938"},{"com":"临沧供电局-临沧镇康供电局","jobtype":"电力调度","city":"临沧","link":"94717828"},{"com":"红河供电局-弥勒供电有限公司","jobtype":"电力调度","city":"红河州","link":"94717460"},{"com":"西双版纳供电局","jobtype":"电力调度","city":"西双版纳","link":"94717720"},{"com":"临沧供电局-凤庆供电有限公司","jobtype":"电力调度","city":"临沧","link":"94717817"},{"com":"临沧供电局","jobtype":"电力调度","city":"临沧","link":"94717804"},{"com":"红河供电局","jobtype":"电力调度","city":"红河州","link":"94717417"},{"com":"瑞丽供电局","jobtype":"电力调度","city":"德宏","link":"94717931"},{"com":"德宏供电局","jobtype":"电力调度","city":"德宏","link":"94717876"},{"com":"迪庆供电局","jobtype":"电力调度","city":"迪庆","link":"94717914"},{"com":"红河供电局-红河个旧供电局","jobtype":"电力调度","city":"红河州","link":"94717447"},{"com":"文山供电局-麻栗坡供电有限公司","jobtype":"电力调度","city":"文山","link":"94717853"},{"com":"昭通供电局-镇雄供电有限公司","jobtype":"电力调度","city":"昭通","link":"94717694"},{"com":"昆明供电局-富民供电有限公司","jobtype":"电力调度","city":"昆明","link":"94717366"},{"com":"丽江供电局","jobtype":"电力调度","city":"丽江","link":"94717888"},{"com":"昭通供电局","jobtype":"电力调度","city":"昭通","link":"94717631"},{"com":"红河供电局-元阳供电有限公司","jobtype":"电力调度","city":"红河州","link":"94717521"},{"com":"昭通供电局-彝良供电有限公司","jobtype":"电力调度","city":"昭通","link":"94717684"},{"com":"曲靖供电局","jobtype":"电力调度","city":"曲靖","link":"94717381"},{"com":"红河供电局-开远供电有限公司","jobtype":"电力调度","city":"红河州","link":"94717495"},{"com":"昆明供电局-禄劝供电有限公司","jobtype":"电力调度","city":"昆明","link":"94717343"},{"com":"昭通供电局-鲁甸供电有限公司","jobtype":"电力调度","city":"昭通","link":"94717651"},{"com":"昆明供电局-石林供电有限公司","jobtype":"电力调度","city":"昆明","link":"94717323"},{"com":"云南电力调度控制中心","jobtype":"电力调度","city":"昆明","link":"94717951"},{"com":"玉溪供电局","jobtype":"电力调度","city":"玉溪","link":"94717542"},{"com":"曲靖供电局-宣威供电有限公司","jobtype":"电力调度","city":"曲靖","link":"94717394"},{"com":"大理供电局","jobtype":"电力调度","city":"大理","link":"94717574"},{"com":"楚雄供电局","jobtype":"电力调度","city":"楚雄","link":"94717597"},{"com":"大理供电局-永平供电有限公司","jobtype":"电力调度","city":"大理","link":"94717590"},{"com":"楚雄供电局-大姚供电有限公司","jobtype":"电力调度","city":"楚雄","link":"94717620"},{"com":"昭通供电局-大关供电有限公司","jobtype":"电力调度","city":"昭通","link":"94717642"},{"com":"昆明供电局","jobtype":"电力调度","city":"昆明","link":"94717293"},{"com":"昆明供电局-昆明嵩明供电局","jobtype":"电力调度","city":"昆明","link":"94717304"},{"com":"玉溪供电局-峨山供电有限公司","jobtype":"电力调度","city":"玉溪","link":"94717556"},{"com":"西双版纳供电局-西双版纳勐腊供电局","jobtype":"电力调度","city":"西双版纳","link":"94717749"},{"com":"大理供电局","jobtype":"发电","city":"大理","link":"94717901"},{"com":"大理供电局-鹤庆供电有限公司","jobtype":"发电","city":"大理","link":"94717917"},{"com":"云南文山电力股份有限公司","jobtype":"发电","city":"文山","link":"94717966"},{"com":"楚雄供电局-大姚供电有限公司","jobtype":"发电","city":"楚雄","link":"94717939"},{"com":"迪庆供电局","jobtype":"基建","city":"迪庆","link":"94717848"},{"com":"建设分公司","jobtype":"基建","city":"昆明","link":"94717864"},{"com":"云南省送变电工程公司","jobtype":"基建","city":"昆明","link":"94717878"},{"com":"教育培训评价中心","jobtype":"教员","city":"昆明","link":"94717820"},{"com":"云南电力试验研究院（集团）有限公司","jobtype":"试验","city":"昆明","link":"94717795"},{"com":"临沧供电局-云县供电有限公司","jobtype":"输电运检","city":"临沧","link":"94718314"},{"com":"大理供电局","jobtype":"输电运检","city":"大理","link":"94718142"},{"com":"普洱供电局-景谷供电有限公司","jobtype":"输电运检","city":"普洱","link":"94718278"},{"com":"西双版纳供电局-西双版纳勐腊供电局","jobtype":"输电运检","city":"西双版纳","link":"94718297"},{"com":"曲靖供电局-罗平供电有限公司","jobtype":"输电运检","city":"曲靖","link":"94718059"},{"com":"楚雄供电局-永仁供电有限公司","jobtype":"输电运检","city":"楚雄","link":"94718215"},{"com":"怒江供电局","jobtype":"输电运检","city":"怒江","link":"94718366"},{"com":"文山供电局","jobtype":"输电运检","city":"文山","link":"94718320"},{"com":"曲靖供电局","jobtype":"输电运检","city":"曲靖","link":"94718045"},{"com":"保山供电局","jobtype":"输电运检","city":"保山","link":"94718343"},{"com":"红河供电局","jobtype":"输电运检","city":"红河州","link":"94718099"},{"com":"昭通供电局-巧家供电有限公司","jobtype":"输电运检","city":"昭通","link":"94718235"},{"com":"德宏供电局","jobtype":"输电运检","city":"德宏","link":"94718351"},{"com":"大理供电局-祥云供电有限公司","jobtype":"输电运检","city":"大理","link":"94718174"},{"com":"迪庆供电局","jobtype":"输电运检","city":"迪庆","link":"94718356"},{"com":"西双版纳供电局","jobtype":"输电运检","city":"西双版纳","link":"94718288"},{"com":"普洱供电局","jobtype":"输电运检","city":"普洱","link":"94718245"},{"com":"楚雄供电局-南华供电有限公司","jobtype":"输电运检","city":"楚雄","link":"94718207"},{"com":"文山供电局-麻栗坡供电有限公司","jobtype":"输电运检","city":"文山","link":"94718323"},{"com":"临沧供电局","jobtype":"输电运检","city":"临沧","link":"94718304"},{"com":"文山供电局-马关供电有限公司","jobtype":"输电运检","city":"文山","link":"94718328"},{"com":"楚雄供电局","jobtype":"输电运检","city":"楚雄","link":"94718186"},{"com":"红河供电局-建水供电有限公司","jobtype":"输电运检","city":"红河州","link":"94718109"},{"com":"大理供电局-永平供电有限公司","jobtype":"输电运检","city":"大理","link":"94718157"},{"com":"昆明供电局","jobtype":"输电运检","city":"昆明","link":"94717984"},{"com":"红河供电局-开远供电有限公司","jobtype":"输电运检","city":"红河州","link":"94718117"},{"com":"昆明供电局-富民供电有限公司","jobtype":"输电运检","city":"昆明","link":"94718023"},{"com":"昭通供电局","jobtype":"输电运检","city":"昭通","link":"94718229"},{"com":"昆明供电局-禄劝供电有限公司","jobtype":"输电运检","city":"昆明","link":"94718015"},{"com":"普洱供电局-景东供电有限公司","jobtype":"输电运检","city":"普洱","link":"94718264"},{"com":"昆明供电局-寻甸供电有限公司","jobtype":"输电运检","city":"昆明","link":"94717994"},{"com":"曲靖供电局-曲靖师宗供电局","jobtype":"输电运检","city":"曲靖","link":"94718090"},{"com":"玉溪供电局-华宁供电有限公司","jobtype":"输电运检","city":"玉溪","link":"94718132"},{"com":"云南文山电力股份有限公司","jobtype":"输电运检","city":"文山","link":"94718379"},{"com":"大理供电局-大理洱源供电局","jobtype":"物流仓储","city":"大理","link":"94718006"},{"com":"楚雄供电局-禄丰供电有限公司","jobtype":"物流仓储","city":"楚雄","link":"94718012"},{"com":"物流服务中心","jobtype":"物流仓储","city":"昆明","link":"94718019"},{"com":"大理供电局","jobtype":"物流仓储","city":"大理","link":"94717993"},{"com":"文山供电局-麻栗坡供电有限公司","jobtype":"营销与配电","city":"文山","link":"94718425"},{"com":"大理供电局-祥云供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718119"},{"com":"曲靖供电局-富源供电有限公司","jobtype":"营销与配电","city":"曲靖","link":"94717546"},{"com":"西双版纳供电局-西双版纳景洪供电局","jobtype":"营销与配电","city":"西双版纳","link":"94724217"},{"com":"德宏供电局-德宏梁河供电局","jobtype":"营销与配电","city":"德宏","link":"94718258"},{"com":"红河供电局-开远供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717685"},{"com":"昆明供电局-宜良供电有限公司","jobtype":"营销与配电","city":"昆明","link":"94717377"},{"com":"大理供电局-永平供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718049"},{"com":"玉溪供电局-峨山供电有限公司","jobtype":"营销与配电","city":"玉溪","link":"94717940"},{"com":"西双版纳供电局-西双版纳勐海供电局","jobtype":"营销与配电","city":"西双版纳","link":"94723836"},{"com":"玉溪供电局-新平供电有限公司","jobtype":"营销与配电","city":"玉溪","link":"94717897"},{"com":"曲靖供电局-陆良供电有限公司","jobtype":"营销与配电","city":"曲靖","link":"94717440"},{"com":"大理供电局-南涧供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718016"},{"com":"红河供电局-石屏供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717632"},{"com":"红河供电局-红河州红河县供电局","jobtype":"营销与配电","city":"红河州","link":"94717699"},{"com":"丽江供电局","jobtype":"营销与配电","city":"丽江","link":"94718246"},{"com":"红河供电局-泸西供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717832"},{"com":"临沧供电局-双江供电有限公司","jobtype":"营销与配电","city":"临沧","link":"94724455"},{"com":"玉溪供电局-玉溪易门供电局","jobtype":"营销与配电","city":"玉溪","link":"94717955"},{"com":"临沧供电局-耿马供电有限公司","jobtype":"营销与配电","city":"临沧","link":"94724430"},{"com":"昆明供电局-富民供电有限公司","jobtype":"营销与配电","city":"昆明","link":"94717410"},{"com":"曲靖供电局-曲靖麒麟供电局","jobtype":"营销与配电","city":"曲靖","link":"94717580"},{"com":"大理供电局-漾濞供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718147"},{"com":"怒江供电局-怒江福贡供电局","jobtype":"营销与配电","city":"怒江","link":"94718130"},{"com":"德宏供电局-德宏陇川供电局","jobtype":"营销与配电","city":"德宏","link":"94718282"},{"com":"临沧供电局-云县供电有限公司","jobtype":"营销与配电","city":"临沧","link":"94724373"},{"com":"红河供电局-屏边供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717725"},{"com":"瑞丽供电局","jobtype":"营销与配电","city":"德宏","link":"94738678"},{"com":"普洱供电局-普洱西盟供电局","jobtype":"营销与配电","city":"普洱","link":"94723098"},{"com":"德宏供电局-德宏芒市供电局","jobtype":"营销与配电","city":"德宏","link":"94718293"},{"com":"大理供电局-巍山供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718107"},{"com":"临沧供电局","jobtype":"营销与配电","city":"临沧","link":"94724289"},{"com":"大理供电局-宾川供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718031"},{"com":"普洱供电局-江城供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94724396"},{"com":"昭通供电局","jobtype":"营销与配电","city":"昭通","link":"94723734"},{"com":"楚雄供电局-元谋供电有限公司","jobtype":"营销与配电","city":"楚雄","link":"94723522"},{"com":"普洱供电局-景谷供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94723349"},{"com":"昭通供电局-威信供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94724138"},{"com":"楚雄供电局-楚雄武定供电局","jobtype":"营销与配电","city":"楚雄","link":"94723661"},{"com":"红河供电局-红河个旧供电局","jobtype":"营销与配电","city":"红河州","link":"94717644"},{"com":"昆明供电局-昆明安宁供电局","jobtype":"营销与配电","city":"昆明","link":"94717268"},{"com":"临沧供电局-临沧沧源供电局","jobtype":"营销与配电","city":"临沧","link":"94724628"},{"com":"普洱供电局-景东供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94723312"},{"com":"楚雄供电局-永仁供电有限公司","jobtype":"营销与配电","city":"楚雄","link":"94723455"},{"com":"楚雄供电局-楚雄鹿城供电局","jobtype":"营销与配电","city":"楚雄","link":"94723617"},{"com":"昆明供电局","jobtype":"营销与配电","city":"昆明","link":"94717079"},{"com":"昭通供电局-盐津供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94724170"},{"com":"玉溪供电局-通海供电有限公司","jobtype":"营销与配电","city":"玉溪","link":"94717877"},{"com":"临沧供电局-临沧永德供电局","jobtype":"营销与配电","city":"临沧","link":"94724574"},{"com":"楚雄供电局","jobtype":"营销与配电","city":"楚雄","link":"94722870"},{"com":"德宏供电局","jobtype":"营销与配电","city":"德宏","link":"94718309"},{"com":"普洱供电局-墨江供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94722826"},{"com":"文山供电局-马关供电有限公司","jobtype":"营销与配电","city":"文山","link":"94718380"},{"com":"楚雄供电局-禄丰供电有限公司","jobtype":"营销与配电","city":"楚雄","link":"94723404"},{"com":"普洱供电局-宁洱供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94723688"},{"com":"德宏供电局-德宏盈江供电局","jobtype":"营销与配电","city":"德宏","link":"94718273"},{"com":"红河供电局","jobtype":"营销与配电","city":"红河州","link":"94717603"},{"com":"丽江供电局-华坪供电有限公司","jobtype":"营销与配电","city":"丽江","link":"94718220"},{"com":"大理供电局-剑川供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718161"},{"com":"昆明供电局-禄劝供电有限公司","jobtype":"营销与配电","city":"昆明","link":"94717390"},{"com":"楚雄供电局-姚安供电有限公司","jobtype":"营销与配电","city":"楚雄","link":"94723219"},{"com":"普洱供电局-镇沅供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94723256"},{"com":"迪庆供电局","jobtype":"营销与配电","city":"迪庆","link":"94718167"},{"com":"大理供电局","jobtype":"营销与配电","city":"大理","link":"94717988"},{"com":"怒江供电局-怒江贡山供电局","jobtype":"营销与配电","city":"怒江","link":"94718113"},{"com":"西双版纳供电局","jobtype":"营销与配电","city":"西双版纳","link":"94723962"},{"com":"曲靖供电局-曲靖马龙供电局","jobtype":"营销与配电","city":"曲靖","link":"94717457"},{"com":"大理供电局-弥渡供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718007"},{"com":"昭通供电局-昭通水富供电局","jobtype":"营销与配电","city":"昭通","link":"94724059"},{"com":"红河供电局-建水供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717654"},{"com":"昭通供电局-大关供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94723851"},{"com":"大理供电局-云龙供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718135"},{"com":"昭通供电局-永善供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94724237"},{"com":"玉溪供电局-玉溪江川供电局","jobtype":"营销与配电","city":"玉溪","link":"94717912"},{"com":"昭通供电局-彝良供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94724196"},{"com":"曲靖供电局-会泽供电有限公司","jobtype":"营销与配电","city":"曲靖","link":"94717555"},{"com":"普洱供电局-普洱思茅供电局","jobtype":"营销与配电","city":"普洱","link":"94723725"},{"com":"云南文山电力股份有限公司","jobtype":"营销与配电","city":"文山","link":"94718096"},{"com":"临沧供电局-临沧临翔供电局","jobtype":"营销与配电","city":"临沧","link":"94724536"},{"com":"普洱供电局-孟连供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94723384"},{"com":"西双版纳供电局-西双版纳勐腊供电局","jobtype":"营销与配电","city":"西双版纳","link":"94723990"},{"com":"玉溪供电局-华宁供电有限公司","jobtype":"营销与配电","city":"玉溪","link":"94717963"},{"com":"曲靖供电局-曲靖师宗供电局","jobtype":"营销与配电","city":"曲靖","link":"94717566"},{"com":"玉溪供电局-澄江供电有限公司","jobtype":"营销与配电","city":"玉溪","link":"94717921"},{"com":"曲靖供电局-罗平供电有限公司","jobtype":"营销与配电","city":"曲靖","link":"94717494"},{"com":"红河供电局-元阳供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717808"},{"com":"昆明供电局-石林供电有限公司","jobtype":"营销与配电","city":"昆明","link":"94717352"},{"com":"楚雄供电局-双柏供电有限公司","jobtype":"营销与配电","city":"楚雄","link":"94723489"},{"com":"曲靖供电局-宣威供电有限公司","jobtype":"营销与配电","city":"曲靖","link":"94717524"},{"com":"玉溪供电局","jobtype":"营销与配电","city":"玉溪","link":"94717850"},{"com":"楚雄供电局-南华供电有限公司","jobtype":"营销与配电","city":"楚雄","link":"94723142"},{"com":"楚雄供电局-大姚供电有限公司","jobtype":"营销与配电","city":"楚雄","link":"94723575"},{"com":"玉溪供电局-元江供电有限公司","jobtype":"营销与配电","city":"玉溪","link":"94717978"},{"com":"临沧供电局-凤庆供电有限公司","jobtype":"营销与配电","city":"临沧","link":"94724494"},{"com":"楚雄供电局-楚雄牟定供电局","jobtype":"营销与配电","city":"楚雄","link":"94732779"},{"com":"红河供电局-绿春供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717745"},{"com":"红河供电局-弥勒供电有限公司","jobtype":"营销与配电","city":"红河州","link":"94717666"},{"com":"曲靖供电局","jobtype":"营销与配电","city":"曲靖","link":"94717420"},{"com":"曲靖供电局-曲靖沾益供电局","jobtype":"营销与配电","city":"曲靖","link":"94717591"},{"com":"昆明供电局-寻甸供电有限公司","jobtype":"营销与配电","city":"昆明","link":"94717300"},{"com":"昭通供电局-镇雄供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94724269"},{"com":"怒江供电局-怒江泸水供电局","jobtype":"营销与配电","city":"怒江","link":"94718151"},{"com":"大理供电局-大理洱源供电局","jobtype":"营销与配电","city":"大理","link":"94718081"},{"com":"昭通供电局-鲁甸供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94723923"},{"com":"丽江供电局-永胜供电有限公司","jobtype":"营销与配电","city":"丽江","link":"94718238"},{"com":"丽江供电局-宁蒗供电有限公司","jobtype":"营销与配电","city":"丽江","link":"94718205"},{"com":"昆明供电局-昆明嵩明供电局","jobtype":"营销与配电","city":"昆明","link":"94717318"},{"com":"临沧供电局-临沧镇康供电局","jobtype":"营销与配电","city":"临沧","link":"94724604"},{"com":"昆明供电局-昆明晋宁供电局","jobtype":"营销与配电","city":"昆明","link":"94717218"},{"com":"大理供电局-鹤庆供电有限公司","jobtype":"营销与配电","city":"大理","link":"94718095"},{"com":"昭通供电局-绥江供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94724098"},{"com":"红河供电局-河口瑶族自治县供电有限责任公司","jobtype":"营销与配电","city":"红河州","link":"94717623"},{"com":"怒江供电局-怒江兰坪供电局","jobtype":"营销与配电","city":"怒江","link":"94718139"},{"com":"大理供电局-大理城区供电局","jobtype":"营销与配电","city":"大理","link":"94718178"},{"com":"昭通供电局-巧家供电有限公司","jobtype":"营销与配电","city":"昭通","link":"94723979"},{"com":"普洱供电局-澜沧供电有限公司","jobtype":"营销与配电","city":"普洱","link":"94723207"}]
+</textarea>
+</div>
+
+<script>
+//var jobdata=jQuery.parseJSON($('#jobdata').text());
+
+var jobdata=JSON.parse(document.getElementById('jobdata').innerText);
+//接受数据
+//调用
+var f0 = new weify(jobdata,{
+                    k1:['全部','变电检修','变电运行','测试','带电作业','电力调度','发电','基建','教员','试验','输电运检','物流仓储','营销与配电'],
+                    k2:['全部','昭通','西双版纳','曲靖','昭通','红河州','大理','德宏','普洱','丽江','临沧','昆明','文山','楚雄','玉溪','保山','迪庆','怒江']
+                  });
+
+/*
+* @des:翻页
+* @Author: wei jundong
+* @Date:   2017-05-25 15:15:39
+* @Last Modified by:   wei jundong
+* @Last Modified time: 2017-05-25 17:38:16
+*/
+
+function weify(udata,key){
+//创建自定义dom结构;
+document.getElementById('job_box').innerHTML='<div id="search_key"><span id="select_box"></span></div>'
+  +'<div id="show_list"> <table id="job_list"></table></div>'
+  +'<div id="search_msg"><button class="fy_btn" data="prev">‹</button><ul id="allPage"></ul><button class="fy_btn" data="next">›</button></div>';
+
+//操作节点
+var select_box= document.getElementById('select_box'),//下拉框
+    job_list=document.getElementById('job_list'),//列表
+   // keyword_btn=document.getElementById('keyword_btn'),
+    search_msg=document.getElementById('search_msg'),
+    keyword=document.getElementById('keyword'),
+    //Allnum=document.getElementById('allnum'),
+    Allpage=document.getElementById('allPage');
+    btn = search_msg.getElementsByTagName("button");
+    //Nowpage=document.getElementById('nowPage')
+
+//初始设置;
+var setnum=12,//设置每页数目
+    setym=8,//设置页码显示数量,当前+1
+    nowpage,//当前页
+    allpage,
+    tempdata=[],//存放
+    startnum=0,//数据节点
+    sek=new Array(),
+    ymcase='',//页码缓存
+    isUpym=1,//前后更多更新页码next:1.prev:2,stop:0;
+    ymstatus='',//页码dom状态
+    opstatus='',//操作状态
+    Condition = function(){
+       var temp=[],allnum=0;
+		  var str0=(arguments[0]!=1)?arguments[0]:'';//ie对象空变1
+          var str1=(arguments[1]!=1)?arguments[1]:'';
+		    for(var i in this){
+		    	 if(this[i]['jobtype'].match(str0) && this[i]['city'].match(str1)){
+		             temp.push(this[i]);
+		             allnum+=1;
+
+		         }
+		    }
+         return [temp,allnum];
+      },
+     Makelist = function(){
+
+      // 注意table在ie9以下无法使用innerHTML,就用列表吧，
+        job_list.innerHTML='<tr class="tit"><td>招聘单位</td><td>职位分类</td><td>工作地点</td><td>申请职位</td></tr></table>';
+        Allpage.innerHTML='';
+	      //Nowpage.innerText=nowpage;
+             if(nowpage==0){
+             job_list.innerHTML='<tr class="tit"><td>招聘单位</td><td>职位分类</td><td>工作地点</td><td>申请职位</td></tr><tr><td colspan="4"><span style="color:red;width:100%;text-align:center;line-height:50px;display:block;">暂无数据！</span></td></tr>';
+            return false;}
+
+        //职位列表缓存
+     	var templist=document.createDocumentFragment();
+        //生成页码
+       if(isUpym==1||isUpym==2){
+        var pnumberlist=document.createDocumentFragment();
+        var startp='',endp='';
+          switch(isUpym){
+          	case 1:
+	          	startp=nowpage,endp=nowpage+setym;
+	          	if(startp!=1&&opstatus=='next'){startp-=1;endp-=1;}
+          	break;
+          	case 2:
+	          	startp=nowpage-setym,endp=nowpage;
+	          	if(startp==0 || opstatus=='prev'){startp+=1;endp+=1;}
+          	break;
+          }
+           	for(var p=startp;p<=endp;p++){
+                if(p<1 || p>allpage){Allpage.appendChild(pnumberlist);break;}
+            var c_pli = document.createElement('li');
+                c_pli.innerText=p;
+             pnumberlist.appendChild(c_pli);
+           }
+
+          Allpage.appendChild(pnumberlist);
+          ymcase=Allpage.innerHTML;
+          isUpym=0;
+       }else{
+          Allpage.innerHTML=ymcase;
+       }
+
+        //点击页码跳到某页
+         for(var yi=0;yi<Allpage.children.length;yi++){
+            Allpage.children[yi].onclick=(function(index){
+              return function(){
+                   nowpage= Number(Allpage.children[index].innerText);
+                    if(index==setym){isUpym=1;}
+                    if(index==0 && Allpage.children[index].innerText!=1){isUpym=2;}
+                   Optpage('toPage');
+              }
+          })(yi);
+          if(Allpage.children[yi].innerText==nowpage){
+             Allpage.children[yi].className='act';
+             ymstatus=yi;
+          }
+      }
+
+      //居中,按钮显示隐藏
+      btn[0].style.display =(nowpage==1)?'none':'block';
+      btn[1].style.display =(nowpage==allpage)?'none':'block';
+      search_msg.style.width=Number(Allpage.children.length*30+40)+'px';
+
+         //生成职位dom
+           for(var i = startnum;i<Number(startnum+setnum);i++){
+           	if(i>=this.length){
+               job_list.appendChild(templist);
+              return false;
+            }
+
+           	var c_li = document.createElement('tr');
+           	c_li.innerHTML='<td class="com">'+this[i]['com']+'</td><td>'+this[i]['jobtype']+'</td><td>'+this[i]['city']+'</td><td><a href="http://nullno.com" target="_blank">立即申请</a></td>';
+             templist.appendChild(c_li);
+
+          }
+
+         job_list.appendChild(templist);
+
+      },
+	Searchkey=function(Co,Ma,obj,key){
+	  var resdata = Co.apply(obj,key);
+	     //Allnum.innerText=resdata[1];
+	     //Allpage.innerText=Math.ceil(resdata[1]/setnum);
+	      startnum=0;
+	      tempdata = resdata[0];
+	      allpage=Math.ceil(resdata[1]/setnum);
+	      isdata=(resdata[0]!='')?1:0;
+	      nowpage= isdata;
+	      //pagenumber.setAttribute('max',allpage);
+	      Ma.apply(resdata[0]);
+
+},
+     Optpage = function(){
+           switch(arguments[0]){
+                case 'prev':
+                      if(nowpage==1)return false;
+                         nowpage-=1;
+                         startnum-=setnum;
+                      if(ymstatus==0){isUpym=2;}
+                          //if(nowpage%9==0){isUpym=2;}
+                break;
+                case 'next':
+                      if(nowpage==allpage)return false;
+                         nowpage+=1;
+                         startnum+=setnum;
+                          //if(nowpage%9==0){isUpym=1;}
+                      if(ymstatus==Allpage.children.length-1){isUpym=1;}
+               break;
+               // case 'firstPage':
+               //        nowpage=1;
+               //        startnum=0;
+               // break;
+
+               // case 'lastPage':
+               //       nowpage=allpage;
+               //       startnum=(nowpage-1)*setnum;
+               // break;
+               case 'toPage':
+                         //console.log(pagenumber.value)
+                        // nowpage=Number(pagenumber.value);
+                     if(nowpage>allpage || nowpage<1)return false;
+                     startnum=(nowpage-1)*setnum;
+               break;
+               default:
+                     return false;
+               break;
+           }
+          opstatus=arguments[0];
+          Makelist.apply(tempdata);
+   };
+sek[0]='',sek[1]='';
+Searchkey(Condition,Makelist,udata,sek);
+//下拉框搜索
+var tempselect=document.createDocumentFragment();//碎片
+var typetext=['职位分类','工作地点'],
+    tn=0;
+   for(var i in key){
+       var c_se= document.createElement('div');
+           c_se.setAttribute('id',i);
+       var c_label=document.createElement('label');
+           c_label.innerText=typetext[tn]+'：';
+           tn++;
+       var c_ul=document.createElement('ul');
+           c_se.appendChild(c_label);
+           c_se.appendChild(c_ul);
+      for(var n  in key[i]){
+       var c_op = document.createElement('li');
+        if(n!=0){
+           c_op.setAttribute('value',key[i][n]);
+         } else{
+           c_op.setAttribute('value','');
+         }
+        // 多选
+       c_op.onclick=function(){
+                    for(var c=0,l=this.parentNode.childNodes.length;c<l;c++){
+                          this.parentNode.childNodes[c].className='';
+                    }
+                    if(this.parentNode.parentNode.getAttribute('id')=='k1'){
+                        sek[0]=this.getAttribute('value');
+                    }else{
+                        sek[1]=this.getAttribute('value');
+                    }
+                           isUpym=1;
+                           this.className='act';
+                           Searchkey(Condition,Makelist,udata,sek);
+                        }
+            c_op.innerText=key[i][n];
+            c_ul.appendChild(c_op);
+       }
+            c_ul.childNodes[0].className='act';
+            tempselect.appendChild(c_se);
+
+   }
+select_box.appendChild(tempselect);
+
+//关键字搜索
+// keyword_btn.onclick=function(){
+//           Searchkey(Condition,Makelist,udata,ignoreSpaces(keyword.value));
+//      }
+//点击翻页
+
+for(var i=0;i<btn.length;i++){
+ btn[i].onclick=(function(index){
+	  return function(){
+            Optpage(btn[index].getAttribute("data"));
+	  }
+  })(i);
+
+}
+
+//过滤空格字符
+	function ignoreSpaces(string) {
+	        var temp = "";
+	        string = '' + string;
+	        splitstring = string.split(" ");
+	        for(i = 0; i < splitstring.length; i++)
+	        temp += splitstring[i];
+	        return temp;
+	}
+}
+
+
+</script>
+
+	</body>
+	</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>2017.6.15 CSS3唱吧首页飞入</title>
+	<meta name="Keywords" content="关键词,关键词" />
+    <meta name="Description" content="描述" />
+    <!--
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />标题前的小图标
+    <link rel="stylesheet" type="text/css" href="" />
+    -->
+    <style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		li{
+			list-style:none;
+		}
+		#wrap{
+			overflow:hidden;
+			background:#ff5046;
+			font-family:"Microsoft YaHei",sans-serif;
+		}
+		.header{
+			width:960px;
+			height:80px;
+			margin:0 auto;
+			/* background:#666; */
+			color:#fff;
+			line-height:80px;
+		}
+		.header:after{
+			display:block;
+			clear:both;
+			content:"";
+			visibility:hidden;
+			height:0;
+		}
+		.header-left{
+			float:left;
+		}
+		.header-left a{
+			display:block;
+			line-height:80px;
+		}
+		.header-left a img{
+			vertical-align:middle;
+		}
+		.header-right{
+			float:right;
+			/* background:green; */
+		}
+		.header-right ul li{
+			float:left;
+			margin-left:50px;
+			padding:0 5px;
+			/* border-top:3px solid #fff; */
+		}
+		.header-right ul li a{
+			line-height:80px;
+			font-size:16px;
+			color:#fff;
+			text-decoration:none;
+		}
+		.title{
+			width:960px;
+			margin:0 auto;
+		}
+		.title img{
+			display:block;
+			margin:20px auto;
+		}
+		.title a{
+			display:block;
+			margin:0 auto;
+			width:103px;
+			height:48px;
+			padding-left:60px;
+			background:url("images/download.png") no-repeat;
+			line-height:48px;
+			color:#fff;
+			font-family:"黑体";
+			font-size:20px;
+			font-weight:500;
+			text-decoration:none;
+		}
+		.content{
+			position:relative;
+			width:960px;
+			height:500px;
+			margin:10px auto;
+		}
+		.content img{
+			position:absolute;
+			left:0;
+			top:0;
+		}
+		.content img:nth-child(1){
+			left:-15px;
+			top:140px;
+			animation:move1 .5s linear .5s backwards;
+		}
+		@keyframes move1{
+			0%{
+				left:-1015px;
+			}
+			100%{
+				left:-15px;
+			}
+		}
+		.content img:nth-child(2){
+			left:159px;
+			top:110px;
+			animation:move2 .5s linear .3s backwards;
+		}
+		@keyframes move2{
+			0%{
+				left:-841px;
+			}
+			100%{
+				left:159px;
+			}
+		}
+		.content img:nth-child(3){
+			left:323px;
+			top:50px;
+			animation:move3 .8s linear backwards;	/* backwards在 animation-delay 所指定的一段时间内，在动画显示之前，应用开始属性值（在第一个关键帧中定义）。
+			animation-fill-mode：none,forwards,backwards,both
+			 */
+		}
+		@keyframes move3{
+			0%{
+				opacity:0;
+				transform:scale(0);
+			}
+			30%{
+				opacity:1;
+				transform:scale(1.2);
+			}
+			40%{
+				opacity:1;
+				transform:scale(0.85);
+			}
+			50%{
+				opacity:1;
+				transform:scale(1.15);
+			}
+			60%{
+				opacity:1;
+				transform:scale(0.9);
+			}
+			70%{
+				opacity:1;
+				transform:scale(1.1);
+			}
+			80%{
+				opacity:1;
+				transform:scale(0.95);
+			}
+			90%{
+				opacity:1;
+				transform:scale(1.05);
+			}
+			100%{
+				opacity:1;
+				transform:scale(1);
+			}
+		}
+		.content img:nth-child(4){
+			left:518px;
+			top:52px;
+			animation:move4 .5s linear .3s backwards;
+		}
+		@keyframes move4{
+			0%{
+				left:1518px;
+			}
+			100%{
+				left:518px;
+			}
+		}
+		.content img:nth-child(5){
+			left:667px;
+			top:30px;
+			animation:move5 .5s linear .5s backwards;
+		}
+		@keyframes move5{
+			0%{
+				left:1667px;
+			}
+			100%{
+				left:667px;
+			}
+		}
+
+    </style>
+</head>
+<body>
+	<div id="wrap">
+		<div class="header">
+			<div class="header-left">
+				<a href=""><img src="img/tu1.jpg" alt="唱吧logo" width="95" height="36" /></a>
+			</div>
+			<div class="header-right">
+				<ul>
+					<li><a href="###">首页</a></li>
+					<li><a href="###">精彩表演</a></li>
+					<li><a href="###">会员中心</a></li>
+					<li><a href="###">金币充值</a></li>
+					<li><a href="###">分享伴奏</a></li>
+					<li><a href="###">直播</a></li>
+					<li><a href="###">音乐人</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="title">
+			<img src="img/tu1.jpg" alt="手机ktv" width="339" height="49" />
+			<a href="">免费下载</a>
+		</div>
+		<div class="content">
+			<img src="img/tu1.jpg" alt="手机应用展示" width="275" height="328" />
+			<img src="img/tu2.jpg" alt="手机应用展示" width="291" height="312" />
+			<img src="img/tu3.jpg" alt="手机应用展示" width="354" height="371" />
+			<img src="img/tu1.jpg" alt="手机应用展示" width="303" height="263" />
+			<img src="img/tu2.jpg" alt="手机应用展示" width="306" height="226" />
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var con=document.getElementsByClassName("content")[0];
+		var aImg=con.getElementsByTagName("img");
+		window.onload=function(){
+			for(var i=0;i<aImg.length;i++){
+				aImg[i].className+="on";
+				//在每个img样式中添加transition:.5s;和transition-delay
+			}
+		}
+	</script>
+</body>
+</html>

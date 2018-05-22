@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>飘呀飘</title>
+	<style type="text/css">
+		#flimg{position: absolute;top:10px;left:10px;}
+		#ficon a{display: inline-block;}
+		#ficon{cursor:pointer;position: absolute; width:18px;height: 18px;background: url(images/close.png) no-repeat;top:0;right: 0;}
+	</style>
+</head>
+<body>
+	<div id="flimg">
+		<a href="">
+			<img src="img/tu1.jpg" alt=""class="imgcon">
+		</a>
+		<i id="ficon"></i>
+	</div>
+	<script type="text/javascript">
+	window.onload = function  () {
+		var flimg = document.getElementById('flimg'),
+			ficon = document.getElementById('ficon'),
+			a1a = setInterval(moves,100),
+			x = 10 ,
+			y = 10;
+			function moves () {
+				var tops = flimg.offsetTop;
+				var lefts = flimg.offsetLeft;
+			if(lefts>=document.documentElement.clientWidth-flimg.offsetWidth||lefts<=0)
+				{
+					x=-x;
+				}
+			if(tops>=document.documentElement.clientHeight-flimg.offsetHeight||tops<=0)
+				{
+					y=-y;
+				}
+			tops+=y;
+			lefts+=x;
+			flimg.style.top=tops+'px';
+			flimg.style.left=lefts+'px';
+			}
+			flimg.onmouseover=function() {
+				clearInterval(a1a);
+			}
+			flimg.onmouseout=function () {
+				a1a = setInterval(moves,100);
+			}
+			ficon.onclick=function () {
+				document.body.removeChild(flimg);
+			}
+	}
+	</script>
+</body>
+</html>

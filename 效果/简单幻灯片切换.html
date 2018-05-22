@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定时切换图片</title>
+	<style>
+		.img-box{
+			width:200px;
+			height:200px;
+			overflow:hidden;
+		}
+		.img-box img{
+			max-width:100%;
+		}
+	</style>
+</head>
+<body>
+<div class="img-box"><img id="img" src="" /></div>
+<script>
+	var curIndex=0;
+	var arr=new Array();
+	arr[0]="http://image.joindata.com/jdfile/e34f523f-612d-4518-94ca-994ee918b26120170427105641.jpg";
+	arr[1]="http://image.joindata.com/jdfile/c665fe6a-9531-424c-9d3f-aabc46baee0020170427173519.jpg";
+	arr[2]="http://image.joindata.com/jdfile/b4dd575c-c946-4619-ba23-11c04296404a20170427105626.jpg";
+
+	setInterval(changeImg,1000);
+	function changeImg(){
+	    var imgObj = document.getElementById("img");
+	    if (curIndex==arr.length-1){
+	        curIndex=0;
+	    }else{
+	        curIndex+=1;
+	    }
+	    imgObj.src = arr[curIndex];
+	}
+</script>
+</body>
+</html>
